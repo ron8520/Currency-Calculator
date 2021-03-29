@@ -7,7 +7,7 @@ To run our product, users can use terminal to get into the folder and use "gradl
 
 To test our product, after getting into the folder by terminal, testers need to use "gradle test" to start testing our code. For the code in the folder "model", the testcase will run automatically and assert if error happens. For the code in the folder "view", the testers will be shown the interface for testing. They can test the interface manually as the view of users.
 
-#ScreenShot of the Application
+# ScreenShot of the Application
 
 <img width="605" alt="WechatIMG533" src="https://user-images.githubusercontent.com/50691871/112773725-d0503e00-9082-11eb-89f1-c11560d9202c.png">
 <img width="599" alt="WechatIMG534" src="https://user-images.githubusercontent.com/50691871/112773729-d1816b00-9082-11eb-8be4-ee0000e03c34.png">
