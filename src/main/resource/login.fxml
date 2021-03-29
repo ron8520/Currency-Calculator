@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="388.0" prefWidth="620.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+   <children>
+      <Pane prefHeight="388.0" prefWidth="310.0" style="-fx-background-color: #1565C0;">
+         <children>
+            <ImageView fitHeight="82.0" fitWidth="97.0" layoutX="114.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../java/W14B_G4_Assignment1/resources/noun_currency_3405241.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="73.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R Square Currency">
+               <font>
+                  <Font name="Arial Bold" size="18.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Pane layoutX="346.0" layoutY="103.0" prefHeight="203.0" prefWidth="237.0">
+
+         <children>
+            <TextField fx:id="userField" layoutX="31.0" prefHeight="29.0" prefWidth="187.0" promptText="Username" style="-fx-font-family: 'Arial'; -fx-background-color: transparent; -fx-border-color: #1565C0; -fx-border-width: 0px 0px 2px 0px;" />
+            <Button fx:id="btlogin" layoutX="67.0" layoutY="168.0" mnemonicParsing="false" onAction="#loginButton" prefHeight="20.0" prefWidth="99.0" stylesheets="@../java/W14B_G4_Assignment1/resources/style.css" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="29.0" fitWidth="27.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../java/W14B_G4_Assignment1/resources/noun_password_3531337.png" />
+               </image>
+            </ImageView>
+            <PasswordField fx:id="passField" layoutX="31.0" layoutY="63.0" prefHeight="29.0" prefWidth="187.0" promptText="Password" style="-fx-font-family: 'Arial'; -fx-background-color: transparent; -fx-border-color: #1565C0; -fx-border-width: 0px 0px 2px 0px;" />
+            <CheckBox fx:id="adminCheckBox" layoutX="5.0" layoutY="123.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text=" You are Admin" textFill="#1155c3">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </CheckBox>
+            <ImageView fitHeight="29.0" fitWidth="27.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../java/W14B_G4_Assignment1/resources/noun_User_2027520.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Button fx:id="btclose" layoutX="583.0" layoutY="7.0" mnemonicParsing="false" onAction="#exitButton" prefHeight="16.0" prefWidth="20.0" style="-fx-background-color: white;" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../java/W14B_G4_Assignment1/resources/noun_Cross_264585.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

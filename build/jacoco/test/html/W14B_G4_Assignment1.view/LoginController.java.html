@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment1</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment1.view</a> &gt; <span class="el_source">LoginController.java</span></div><h1>LoginController.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment1.view;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class LoginController implements Initializable {
+    static String username;
+    private UIWindow window;
+<span class="fc" id="L22">    private boolean isAdmin = false;</span>
+
+    @FXML
+    private Button btlogin;
+
+    @FXML
+    private Button btclose;
+
+    @FXML
+    private TextField userField;
+
+    @FXML
+    private TextField passField;
+
+    @FXML
+    private CheckBox adminCheckBox;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resources){
+
+<span class="fc" id="L42">    }</span>
+
+<span class="fc" id="L44">    public LoginController(UIWindow window){</span>
+<span class="fc" id="L45">        this.window = window;</span>
+<span class="fc" id="L46">    }</span>
+
+    @FXML
+    public void exitButton(ActionEvent event) {
+<span class="nc" id="L50">        System.exit(0);</span>
+<span class="nc" id="L51">    }</span>
+
+    @FXML
+    public void loginButton(ActionEvent event){
+        try {
+<span class="fc" id="L56">            String username = userField.getText();</span>
+<span class="fc" id="L57">            String password = userField.getText();</span>
+<span class="fc" id="L58">            Boolean isAdmin = adminCheckBox.isSelected();</span>
+<span class="fc" id="L59">            window.setUsername(username);</span>
+<span class="fc" id="L60">            window.changeScene(event, isAdmin);</span>
+<span class="nc" id="L61">        } catch (IOException ex) {</span>
+<span class="nc" id="L62">            System.err.println(ex.getMessage());</span>
+<span class="fc" id="L63">        }</span>
+<span class="fc" id="L64">    }</span>
+
+    public static String getUsername(){
+<span class="nc" id="L67">        return username;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

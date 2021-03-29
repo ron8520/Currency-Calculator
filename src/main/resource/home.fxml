@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="726.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="431.0" prefWidth="200.0" style="-fx-background-color: #1565C0;">
+         <children>
+            <Pane prefHeight="141.0" prefWidth="200.0">
+               <children>
+                  <Text fill="WHITE" layoutX="90.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R Square">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="38.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../java/W14B_G4_Assignment1/resources/noun_currency_3405241.png" />
+                     </image>
+                  </ImageView>
+                  <Text fill="WHITE" layoutX="90.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Currency">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Button fx:id="bthome" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#handleMouseEvent" prefHeight="55.0" prefWidth="200.0" stylesheets="@../java/W14B_G4_Assignment1/resources/style.css" text="Home" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../java/W14B_G4_Assignment1/resources/noun_Home_3534089.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="30.0" top="15.0" />
+               </padding>
+            </Button>
+            <Button fx:id="btcalculator" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#handleMouseEvent" prefHeight="55.0" prefWidth="200.0" stylesheets="@../java/W14B_G4_Assignment1/resources/style.css" text="Calculator" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../java/W14B_G4_Assignment1/resources/noun_Calculator_3532723.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="30.0" top="15.0" />
+               </padding>
+            </Button>
+            <Button fx:id="bthistory" alignment="TOP_LEFT" graphicTextGap="20.0" mnemonicParsing="false" onAction="#handleMouseEvent" prefHeight="55.0" prefWidth="200.0" stylesheets="@../java/W14B_G4_Assignment1/resources/style.css" text="History" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../java/W14B_G4_Assignment1/resources/noun_History_2606837.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="30.0" top="15.0" />
+               </padding>
+            </Button>
+            <ImageView fitHeight="126.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </VBox>
+      <StackPane layoutX="200.0">
+         <children>
+            <Pane fx:id="pnhistory" prefHeight="430.0" prefWidth="528.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="94.0" layoutY="30.0" text="FROM" textFill="#1565c0">
+                     <font>
+                        <Font name="Arial Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="371.0" layoutY="30.0" text="TO" textFill="#1565c0">
+                     <font>
+                        <Font name="Arial Bold" size="22.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="fromChoiceHistory" layoutX="57.0" layoutY="88.0" onAction="#historyEvent" prefWidth="150.0" stylesheets="@../java/W14B_G4_Assignment1/resources/choicebox.css" />
+                  <ChoiceBox fx:id="toChoiceHistory" layoutX="321.0" layoutY="88.0" onAction="#historyEvent" prefWidth="150.0" stylesheets="@../java/W14B_G4_Assignment1/resources/choicebox.css" />
+                  <ChoiceBox fx:id="fromDate" layoutX="57.0" layoutY="164.0" onAction="#historyEvent" prefWidth="150.0" stylesheets="@../java/W14B_G4_Assignment1/resources/choicebox.css" />
+                  <ChoiceBox fx:id="toDate" layoutX="321.0" layoutY="164.0" onAction="#historyEvent" prefWidth="150.0" stylesheets="@../java/W14B_G4_Assignment1/resources/choicebox.css" />
+                  <Label layoutX="369.0" layoutY="138.0" text="DATE" textFill="#eb853e">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <ListView fx:id="historyList" layoutX="52.0" layoutY="236.0" prefHeight="175.0" prefWidth="310.0" style="-fx-border-color: #1565c0; -fx-border-width: 2px 2px 2px 2px;" />
+                  <ImageView fitHeight="28.0" fitWidth="25.0" layoutX="66.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../java/W14B_G4_Assignment1/resources/noun_date_1844792.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="97.0" layoutY="138.0" text="DATE" textFill="#eb853e">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="28.0" fitWidth="25.0" layoutX="335.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../java/W14B_G4_Assignment1/resources/noun_date_1844792.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="btclose2" layoutX="498.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="16.0" prefWidth="20.0" style="-fx-background-color: #fff;" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../java/W14B_G4_Assignment1/resources/noun_Cross_264585.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Label layoutX="187.0" layoutY="215.0" text="Currency Rate" textFill="#eb853e">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="82.0" layoutY="215.0" text="DATE" textFill="#eb853e">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="386.0" layoutY="261.0" text="AVG: " textFill="#eb853e">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="386.0" layoutY="303.0" text="MAX: " textFill="#eb853e">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="389.0" layoutY="345.0" text="MIN: " textFill="#eb853e">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="avg" layoutX="440.0" layoutY="261.0" text="1234" textFill="#a8dbf7">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="max" layoutX="440.0" layoutY="303.0" text="1234" textFill="#a8dbf7">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="min" layoutX="440.0" layoutY="345.0" text="1234" textFill="#a8dbf7">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="386.0" layoutY="226.0" text="MED: " textFill="#eb853e">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="390.0" layoutY="382.0" text="STD: " textFill="#eb853e">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="med" layoutX="440.0" layoutY="226.0" text="1234" textFill="#a8dbf7">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="std" layoutX="440.0" layoutY="382.0" text="1234" textFill="#a8dbf7">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="pncalculator" layoutX="200.0" prefHeight="430.0" prefWidth="528.0" style="-fx-background-color: white;">
+               <children>
+                  <Button layoutX="61.0" layoutY="151.0" mnemonicParsing="false" prefHeight="156.0" prefWidth="150.0" style="-fx-background-color: #a8dbf7;" />
+                  <TextField fx:id="fromAmount" layoutX="78.0" layoutY="256.0" onAction="#choiceBoxEvent" prefHeight="26.0" prefWidth="110.0" style="-fx-border-width: 0px 0px 2px 0px; -fx-border-color: white; -fx-background-color: transparent;">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                  </TextField>
+                  <ChoiceBox fx:id="fromChoice" layoutX="86.0" layoutY="201.0" onAction="#choiceBoxEvent" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: white;" stylesheets="@../java/W14B_G4_Assignment1/resources/choicebox.css" />
+                  <Button layoutX="326.0" layoutY="151.0" mnemonicParsing="false" prefHeight="156.0" prefWidth="150.0" style="-fx-background-color: #99e6e4;" />
+                  <ChoiceBox fx:id="toChoice" layoutX="354.0" layoutY="201.0" onAction="#choiceBoxEvent" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: white;" stylesheets="@../java/W14B_G4_Assignment1/resources/choicebox.css" />
+                  <TextField fx:id="toAmount" layoutX="346.0" layoutY="256.0" onAction="#choiceBoxEvent" prefHeight="26.0" prefWidth="110.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                  </TextField>
+                  <ImageView fitHeight="67.0" fitWidth="72.0" layoutX="231.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../java/W14B_G4_Assignment1/resources/noun_change_3022243.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="btclose1" layoutX="498.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="16.0" prefWidth="20.0" style="-fx-background-color: #fff;" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../java/W14B_G4_Assignment1/resources/noun_Cross_264585.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane fx:id="pnhome" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="528.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="406.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../java/W14B_G4_Assignment1/resources/noun_User_2027520.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="16.0" layoutY="56.0" prefHeight="45.0" prefWidth="298.0" text="Top 4 Popular Currency" textFill="#4991c4">
+                     <font>
+                        <Font name="Arial Bold" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="username" layoutX="433.0" layoutY="34.0" text="Username">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                  </Label>
+                  <GridPane layoutX="16.0" layoutY="125.0" prefHeight="272.0" prefWidth="497.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.0" minWidth="10.0" prefWidth="94.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="412.0" minWidth="10.0" prefWidth="403.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="fromCur1" alignment="CENTER" prefHeight="17.0" prefWidth="100.0" text="CUR1" textFill="#eb853e" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Arial Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="fromCur2" alignment="CENTER" prefHeight="17.0" prefWidth="100.0" text="CUR2" textFill="#eb853e" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Arial Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="fromCur3" alignment="CENTER" prefHeight="17.0" prefWidth="100.0" text="CUR3" textFill="#eb853e" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Arial Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="fromCur4" alignment="CENTER" prefHeight="17.0" prefWidth="100.0" text="CUR4" textFill="#eb853e" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Arial Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="toCurNames" alignment="CENTER" prefHeight="21.0" prefWidth="407.0" text="CUR1" textFill="#438fc6" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="Arial Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="cur1List" alignment="CENTER" prefHeight="21.0" prefWidth="410.0" text="CUR1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="Arial" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="cur2List" alignment="CENTER" prefHeight="21.0" prefWidth="447.0" text="CUR2" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="Arial" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="cur3List" alignment="CENTER" prefHeight="21.0" prefWidth="483.0" text="CUR3" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="Arial" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="cur4List" alignment="CENTER" prefHeight="21.0" prefWidth="450.0" text="CUR4" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="Arial" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="To" textFill="#438fc6">
+                           <graphic>
+                              <Label text=" From" textFill="#eb853e">
+                                 <font>
+                                    <Font name="Arial Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                           </graphic>
+                           <font>
+                              <Font name="Arial Bold" size="17.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Label>
+                     </children>
+                  </GridPane>
+                  <Button fx:id="btclose1" layoutX="498.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="16.0" prefWidth="20.0" style="-fx-background-color: #fff;" textFill="WHITE">
+                     <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../java/W14B_G4_Assignment1/resources/noun_Cross_264585.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

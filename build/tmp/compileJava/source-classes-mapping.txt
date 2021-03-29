@@ -1,0 +1,18 @@
+W14B_G4_Assignment1/model/Calculator.java
+ W14B_G4_Assignment1.model.Calculator
+W14B_G4_Assignment1/view/UIWindow.java
+ W14B_G4_Assignment1.view.UIWindow
+W14B_G4_Assignment1/model/Currency.java
+ W14B_G4_Assignment1.model.Currency
+W14B_G4_Assignment1/view/AdminController.java
+ W14B_G4_Assignment1.view.AdminController
+W14B_G4_Assignment1/model/JsonReader.java
+ W14B_G4_Assignment1.model.JsonReader
+W14B_G4_Assignment1/view/LoginController.java
+ W14B_G4_Assignment1.view.LoginController
+W14B_G4_Assignment1/view/HomeController.java
+ W14B_G4_Assignment1.view.HomeController
+W14B_G4_Assignment1/App.java
+ W14B_G4_Assignment1.App
+W14B_G4_Assignment1/model/JsonWriter.java
+ W14B_G4_Assignment1.model.JsonWriter

@@ -1,0 +1,18 @@
+W14B_G4_Assignment1/AdminControllerTest.java
+ W14B_G4_Assignment1.AdminControllerTest
+W14B_G4_Assignment1/CurrencyCopy.java
+ W14B_G4_Assignment1.model.CurrencyCopy
+W14B_G4_Assignment1/CalculatorTest.java
+ W14B_G4_Assignment1.CalculatorTest
+W14B_G4_Assignment1/UIWindowTest.java
+ W14B_G4_Assignment1.UIWindowTest
+ W14B_G4_Assignment1.UIWindowTest$1
+ W14B_G4_Assignment1.UIWindowTest$1$1
+ W14B_G4_Assignment1.UIWindowTest$2
+ W14B_G4_Assignment1.UIWindowTest$2$1
+W14B_G4_Assignment1/AppTest.java
+ W14B_G4_Assignment1.AppTest
+W14B_G4_Assignment1/JsonReaderTest.java
+ W14B_G4_Assignment1.JsonReaderTest
+W14B_G4_Assignment1/JsonWriterTest.java
+ W14B_G4_Assignment1.JsonWriterTest

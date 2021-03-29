@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JsonReader.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment1</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment1.model</a> &gt; <span class="el_source">JsonReader.java</span></div><h1>JsonReader.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment1.model;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+public class JsonReader {
+
+    private JSONArray dateList;
+
+    @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L20">    public JsonReader(String filename){</span>
+
+<span class="fc" id="L22">        JSONParser jsonParser = new JSONParser();</span>
+        try {
+
+<span class="fc" id="L25">            FileReader reader = new FileReader(filename);</span>
+            //Read JSON file
+<span class="fc" id="L27">            Object obj = jsonParser.parse(reader);</span>
+            //dateList = (JSONArray) obj;
+<span class="fc" id="L29">            dateList = (JSONArray) obj;</span>
+
+<span class="nc" id="L31">        } catch (FileNotFoundException e) {</span>
+<span class="nc" id="L32">            e.printStackTrace();</span>
+<span class="nc" id="L33">        } catch (IOException e) {</span>
+<span class="nc" id="L34">            e.printStackTrace();</span>
+<span class="nc" id="L35">        } catch (ParseException e) {</span>
+<span class="nc" id="L36">            e.printStackTrace();</span>
+<span class="pc" id="L37">        }</span>
+
+<span class="fc" id="L39">    }</span>
+
+    public List&lt;String&gt; getDate() {  // param should be the structure of &quot;yyyy-mm-dd&quot;
+
+<span class="fc" id="L43">        List&lt;String&gt; dates = new ArrayList&lt;&gt;();</span>
+        // forEach loop iterates over date array
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        for (Object date : dateList) {</span>
+
+<span class="fc" id="L47">            JSONObject dateObject = (JSONObject) date;</span>
+<span class="fc" id="L48">            dateObject = (JSONObject) dateObject.get(&quot;Date&quot;);</span>
+
+            // get date
+<span class="fc" id="L51">            String dateStr = (String) dateObject.get(&quot;date&quot;);</span>
+<span class="fc" id="L52">            dates.add(dateStr);</span>
+<span class="fc" id="L53">        }</span>
+<span class="fc" id="L54">        return dates;</span>
+    }
+
+
+    public HashMap&lt; String, HashMap&lt;String, Double&gt; &gt; getDateMap(String dateTime){  // param should be the structure of &quot;yyyy-mm-dd&quot;
+
+<span class="fc" id="L60">        HashMap&lt; String, HashMap&lt;String, Double&gt; &gt; currencyMap = new HashMap&lt;&gt;();</span>
+        // forEach loop iterates over date array
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        for(Object date: dateList){</span>
+
+<span class="fc" id="L64">            JSONObject dateObject = (JSONObject) date;</span>
+<span class="fc" id="L65">            dateObject = (JSONObject) dateObject.get(&quot;Date&quot;);</span>
+
+            // get date
+<span class="fc" id="L68">            String dateStr = (String) dateObject.get(&quot;date&quot;);</span>
+
+<span class="fc bfc" id="L70" title="All 2 branches covered.">            if(!dateStr.equals(dateTime)){</span>
+<span class="fc" id="L71">                continue;</span>
+            }
+
+            // get currency name
+<span class="fc bfc" id="L75" title="All 2 branches covered.">            for (int i = 1;i &lt;= 6;i++){</span>
+<span class="fc" id="L76">                String tmp = &quot;Currency&quot; + String.valueOf(i);</span>
+<span class="fc" id="L77">                JSONObject curObj = (JSONObject) dateObject.get(tmp);</span>
+<span class="fc" id="L78">                String currencyName = (String) curObj.get(&quot;name&quot;);</span>
+<span class="fc" id="L79">                JSONArray rates = (JSONArray) curObj.get(&quot;rate&quot;);</span>
+
+<span class="fc" id="L81">                HashMap&lt;String, Double&gt; inner = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">                for(Object rate: rates){</span>
+<span class="fc" id="L83">                    JSONObject rateObj = (JSONObject) rate;</span>
+
+<span class="fc" id="L85">                    String keyStr = &quot;&quot;;</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">                    for (Object key:rateObj.keySet()){</span>
+<span class="fc" id="L87">                        keyStr = (String) key;</span>
+<span class="fc" id="L88">                    }</span>
+
+<span class="fc" id="L90">                    Double rateNum = Double.parseDouble((String) rateObj.get(keyStr));</span>
+<span class="fc" id="L91">                    inner.put(keyStr, rateNum);</span>
+<span class="fc" id="L92">                }</span>
+<span class="fc" id="L93">                currencyMap.put(currencyName, inner);</span>
+            }
+<span class="fc" id="L95">            break;</span>
+        }
+<span class="fc" id="L97">        return currencyMap;</span>
+
+    }
+    public String getSymbol(String dateTime, String name){
+<span class="fc" id="L101">        String symbol = &quot;&quot;;</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        for(Object date: dateList) {</span>
+
+<span class="fc" id="L104">            JSONObject dateObject = (JSONObject) date;</span>
+<span class="fc" id="L105">            dateObject = (JSONObject) dateObject.get(&quot;Date&quot;);</span>
+
+            // get date
+<span class="fc" id="L108">            String dateStr = (String) dateObject.get(&quot;date&quot;);</span>
+
+<span class="fc bfc" id="L110" title="All 2 branches covered.">            if (!dateStr.equals(dateTime)) {</span>
+<span class="fc" id="L111">                continue;</span>
+            }
+
+            // get currency name
+<span class="fc bfc" id="L115" title="All 2 branches covered.">            for (int i = 1; i &lt;= 6; i++) {</span>
+<span class="fc" id="L116">                String tmp = &quot;Currency&quot; + String.valueOf(i);</span>
+<span class="fc" id="L117">                JSONObject curObj = (JSONObject) dateObject.get(tmp);</span>
+<span class="fc" id="L118">                String currencyName = (String) curObj.get(&quot;name&quot;);</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">                if (!currencyName.equals(name)) {</span>
+<span class="fc" id="L120">                    continue;</span>
+                }
+<span class="fc" id="L122">                symbol = (String) curObj.get(&quot;symbol&quot;);</span>
+            }
+<span class="fc" id="L124">        }</span>
+<span class="fc" id="L125">        return symbol;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

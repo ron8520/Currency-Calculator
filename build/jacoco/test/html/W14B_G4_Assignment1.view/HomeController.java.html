@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HomeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment1</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment1.view</a> &gt; <span class="el_source">HomeController.java</span></div><h1>HomeController.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment1.view;
+
+import W14B_G4_Assignment1.model.Calculator;
+import W14B_G4_Assignment1.model.Currency;
+import W14B_G4_Assignment1.model.JsonReader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
+
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
+
+
+public class HomeController implements Initializable{
+    private UIWindow window;
+
+    @FXML
+    private Button bthome, btclose, bthistory, btcalculator;
+
+    @FXML
+    private Pane pnhistory, pncalculator, pnhome;
+
+    @FXML
+    private Label username, fromCur1, fromCur2, fromCur3, fromCur4, toCurNames, cur1List, cur2List, cur3List, cur4List, med, avg, max, min, std;
+
+    @FXML
+    private ChoiceBox fromChoice, toChoice, fromChoiceHistory, toChoiceHistory, fromDate, toDate;
+
+    @FXML
+    private TextField fromAmount, toAmount;
+
+    @FXML
+    private ListView&lt;String&gt; historyList;
+
+<span class="fc" id="L41">    private ObservableList&lt;String&gt; items = FXCollections.observableArrayList ();</span>
+
+    @Override
+    public void initialize(URL url, ResourceBundle resources){
+
+<span class="fc" id="L46">    }</span>
+
+<span class="fc" id="L48">    public HomeController(UIWindow window){</span>
+<span class="fc" id="L49">        this.window = window;</span>
+<span class="fc" id="L50">    }</span>
+
+    @FXML
+    public void handleMouseEvent(ActionEvent event){
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        if(event.getSource() == bthome){</span>
+<span class="nc" id="L55">            pnhome.toFront();</span>
+        }
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        if(event.getSource() == btcalculator){</span>
+<span class="nc" id="L58">            pncalculator.toFront();</span>
+        }
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if(event.getSource() == bthistory){</span>
+<span class="nc" id="L61">            pnhistory.toFront();</span>
+        }
+
+<span class="nc" id="L64">    }</span>
+
+    @FXML
+    public void choiceBoxEvent(ActionEvent event){
+<span class="nc" id="L68">        String fromValue = fromAmount.getText();</span>
+<span class="nc" id="L69">        String toValue = toAmount.getText();</span>
+<span class="nc bnc" id="L70" title="All 4 branches missed.">        if (!fromValue.matches(&quot;\\d*&quot;)||!toValue.matches(&quot;\\d*&quot;)) {</span>
+<span class="nc" id="L71">            fromAmount.setText(fromValue.replaceAll(&quot;[^\\d.]&quot;, &quot;&quot;));</span>
+<span class="nc" id="L72">            fromValue = fromAmount.getText();</span>
+<span class="nc" id="L73">            toAmount.setText(toValue.replaceAll(&quot;[^\\d.]&quot;, &quot;&quot;));</span>
+<span class="nc" id="L74">            toValue = toAmount.getText();</span>
+        }
+<span class="nc bnc" id="L76" title="All 4 branches missed.">        if(fromChoice.getValue() != null &amp;&amp; toChoice.getValue() != null){</span>
+<span class="nc" id="L77">            String from = fromChoice.getValue().toString();</span>
+<span class="nc" id="L78">            String to = toChoice.getValue().toString();</span>
+<span class="nc bnc" id="L79" title="All 4 branches missed.">            if(Currency.getCurrency(from) != null &amp;&amp; Currency.getCurrency(to) != null){</span>
+<span class="nc" id="L80">                double rate = Currency.getCurrency(from).getCurrencyRate(Currency.getCurrency(to).getCurrencyID());</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">                if(event.getSource() == fromAmount){</span>
+<span class="nc" id="L82">                    toAmount.setText(Double.valueOf(Double.parseDouble(fromValue)*rate).toString());</span>
+                }
+<span class="nc bnc" id="L84" title="All 2 branches missed.">                if(event.getSource() == toAmount){</span>
+<span class="nc" id="L85">                    fromAmount.setText(Double.valueOf(Double.parseDouble(toValue)*rate).toString());</span>
+                }
+            }
+        }
+<span class="nc" id="L89">    }</span>
+
+    @FXML
+    public void historyEvent(ActionEvent event){
+<span class="nc bnc" id="L93" title="All 8 branches missed.">        if(fromChoiceHistory.getValue() != null &amp;&amp; toChoiceHistory.getValue() != null &amp;&amp; fromDate.getValue() != null &amp;&amp; toDate.getValue() != null){</span>
+<span class="nc" id="L94">            historyList.getItems().clear();</span>
+<span class="nc" id="L95">            items.clear();</span>
+<span class="nc" id="L96">            String fromCurrency = fromChoiceHistory.getValue().toString();</span>
+<span class="nc" id="L97">            String toCurrency = toChoiceHistory.getValue().toString();</span>
+<span class="nc" id="L98">            String startTime = fromDate.getValue().toString();</span>
+<span class="nc" id="L99">            String endTime = toDate.getValue().toString();</span>
+<span class="nc" id="L100">            Calculator result = new Calculator(startTime,endTime,fromCurrency,toCurrency);</span>
+<span class="nc" id="L101">            List&lt;String&gt; transaction = result.getTransactions();</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">            for(int i = 0; i &lt; transaction.size(); i++){</span>
+<span class="nc" id="L103">                items.add(transaction.get(i));</span>
+            }
+<span class="nc" id="L105">            historyList.getItems().addAll(items);</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">            if(fromChoiceHistory.getValue().equals(toChoiceHistory.getValue())) {</span>
+<span class="nc" id="L107">                avg.setText(&quot;1&quot;);</span>
+<span class="nc" id="L108">                med.setText(&quot;1&quot;);</span>
+<span class="nc" id="L109">                max.setText(&quot;1&quot;);</span>
+<span class="nc" id="L110">                min.setText(&quot;1&quot;);</span>
+<span class="nc" id="L111">                std.setText(&quot;1&quot;);</span>
+            }else{
+<span class="nc" id="L113">                avg.setText(String.format(&quot;%.3f&quot;, result.average()));</span>
+<span class="nc" id="L114">                med.setText(String.format(&quot;%.3f&quot;, result.median()));</span>
+<span class="nc" id="L115">                max.setText(String.format(&quot;%.3f&quot;, result.maximum()));</span>
+<span class="nc" id="L116">                min.setText(String.format(&quot;%.3f&quot;, result.minimum()));</span>
+<span class="nc" id="L117">                std.setText(String.format(&quot;%.3f&quot;, result.stdDeviation()));</span>
+            }
+        }
+<span class="nc" id="L120">    }</span>
+
+    @FXML
+    public void exit(){
+<span class="nc" id="L124">        System.exit(0);</span>
+<span class="nc" id="L125">    }</span>
+
+    public void setUsername(String name){
+<span class="fc" id="L128">        username.setText(name);</span>
+<span class="fc" id="L129">    }</span>
+
+    public void updatePopularTable(String date){
+<span class="nc" id="L132">        String names = &quot;&quot;;</span>
+<span class="nc" id="L133">        List&lt;Integer&gt; popular = Currency.getPopularCurrencies();</span>
+<span class="nc" id="L134">        List&lt;Label&gt; table = Arrays.asList(cur1List,cur2List,cur3List,cur4List);</span>
+<span class="nc" id="L135">        List&lt;Label&gt; fromNames = Arrays.asList(fromCur1,fromCur2,fromCur3,fromCur4);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        for(int i = 0; i &lt; 4; i ++){</span>
+<span class="nc" id="L137">            names += String.format(&quot;%-12s&quot;, Currency.getName(popular.get(i))+Currency.getSymbol(popular.get(i)));</span>
+<span class="nc" id="L138">            String output = &quot;&quot;;</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">            for(int j = 0; j &lt; 4; j ++){</span>
+<span class="nc" id="L140">                double rate = Currency.getCurrency(popular.get(i)).getCurrencyRate(popular.get(j));</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">                if(i==j){</span>
+<span class="nc" id="L142">                    output += String.format(&quot;%-15s&quot;,&quot;-&quot;);</span>
+                }else{
+<span class="nc" id="L144">                    String formatRate = String.format(&quot;%.3f&quot;,rate);</span>
+<span class="nc" id="L145">                    output += String.format(&quot;%-15s&quot;,rate + Currency.getStatus(popular.get(i), popular.get(j),date));</span>
+                }
+            }
+<span class="nc" id="L148">            table.get(i).setText(output);</span>
+<span class="nc" id="L149">            fromNames.get(i).setText(Currency.getName(popular.get(i))+Currency.getSymbol(popular.get(i)));</span>
+        }
+<span class="nc" id="L151">        toCurNames.setText(names);</span>
+<span class="nc" id="L152">    }</span>
+
+    public void updateCalculatePane(){
+<span class="nc" id="L155">        fromChoice.setStyle(&quot;-fx-font: 17 arial;&quot;);</span>
+<span class="nc" id="L156">        toChoice.setStyle(&quot;-fx-font: 17 arial;&quot;);</span>
+
+<span class="nc" id="L158">        fromChoice.getItems().clear();</span>
+<span class="nc" id="L159">        toChoice.getItems().clear();</span>
+
+<span class="nc bnc" id="L161" title="All 2 branches missed.">        for(int i = 0; i &lt; Currency.getCurrencyCount(); i ++){</span>
+<span class="nc" id="L162">            fromChoice.getItems().add(Currency.getName(i));</span>
+<span class="nc" id="L163">            toChoice.getItems().add(Currency.getName(i));</span>
+        }
+
+<span class="nc" id="L166">        fromChoice.setValue(Currency.getName(0));</span>
+<span class="nc" id="L167">        toChoice.setValue(Currency.getName(0));</span>
+<span class="nc" id="L168">    }</span>
+
+    public void updateHistoryPane(String filename){
+<span class="nc" id="L171">        fromChoiceHistory.setStyle(&quot;-fx-font: 18 arial;&quot;);</span>
+<span class="nc" id="L172">        toChoiceHistory.setStyle(&quot;-fx-font: 18 arial;&quot;);</span>
+<span class="nc" id="L173">        fromDate.setStyle(&quot;-fx-font: 18 arial;&quot;);</span>
+<span class="nc" id="L174">        toDate.setStyle(&quot;-fx-font: 18 arial;&quot;);</span>
+
+<span class="nc" id="L176">        fromChoiceHistory.getItems().clear();</span>
+<span class="nc" id="L177">        toChoiceHistory.getItems().clear();</span>
+<span class="nc" id="L178">        fromDate.getItems().clear();</span>
+<span class="nc" id="L179">        toDate.getItems().clear();</span>
+
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        for(int i = 0; i &lt; Currency.getCurrencyCount(); i ++){</span>
+<span class="nc" id="L182">            fromChoiceHistory.getItems().add(Currency.getName(i));</span>
+<span class="nc" id="L183">            toChoiceHistory.getItems().add(Currency.getName(i));</span>
+        }
+<span class="nc" id="L185">        fromChoiceHistory.setValue(Currency.getName(0));</span>
+<span class="nc" id="L186">        toChoiceHistory.setValue(Currency.getName(1));</span>
+
+<span class="nc" id="L188">        JsonReader dataReader = new JsonReader(filename);</span>
+<span class="nc" id="L189">        List&lt;String&gt; dates = dataReader.getDate();</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">        for(int i = 0; i &lt; dates.size(); i ++){</span>
+<span class="nc" id="L191">            fromDate.getItems().add(dates.get(i));</span>
+<span class="nc" id="L192">            toDate.getItems().add(dates.get(i));</span>
+        }
+<span class="nc" id="L194">        toDate.setValue(dates.get(0));</span>
+<span class="nc" id="L195">        toDate.setValue(dates.get(1));</span>
+<span class="nc" id="L196">        historyList.setStyle(&quot;-fx-font: 20 arial;&quot;);</span>
+<span class="nc" id="L197">    }</span>
+
+    public void updateTable(String filename, String date){
+<span class="nc" id="L200">        this.updatePopularTable(date);</span>
+<span class="nc" id="L201">        this.updateCalculatePane();</span>
+<span class="nc" id="L202">        this.updateHistoryPane(filename);</span>
+<span class="nc" id="L203">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

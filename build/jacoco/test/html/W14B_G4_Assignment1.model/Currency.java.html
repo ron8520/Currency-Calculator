@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Currency.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment1</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment1.model</a> &gt; <span class="el_source">Currency.java</span></div><h1>Currency.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment1.model;
+
+import java.util.*;
+
+public class Currency {
+
+<span class="fc" id="L7">    static int currentCurrencyCount = 0;</span>
+<span class="fc" id="L8">    static List&lt;Currency&gt; currencies = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L9">    static List&lt;Integer&gt; popularCurrencies = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L10">    static String date = &quot;&quot;;</span>
+
+    private int currencyID;
+    private String name;
+    private String symbol;
+    private List&lt;Double&gt; currencyRate;
+    private boolean isPopular;
+
+    /**
+     * Create an new currency
+     * @param currencyName the name of the new currency
+     * @param relateCurrencyID the currencyID of an old currency used for automatic calculation
+     * @param exchangeRate the exchange rate of the new currency to an old currency upon
+     */
+<span class="nc" id="L24">    public Currency(String currencyName,String symbol, int relateCurrencyID, double exchangeRate){</span>
+<span class="nc" id="L25">        this.name = currencyName;</span>
+<span class="nc" id="L26">        this.symbol = symbol;</span>
+<span class="nc" id="L27">        this.currencyID = increaseCurrentCurrencyCount();</span>
+<span class="nc" id="L28">        this.currencyRate = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L29">        this.expandCurrencyList(relateCurrencyID,exchangeRate);</span>
+<span class="nc" id="L30">        this.isPopular = false;</span>
+<span class="nc" id="L31">        String filePath = &quot;src/main/java/W14B_G4_Assignment1/resources/ExchangeRates.json&quot;;</span>
+<span class="nc" id="L32">        JsonWriter writer = new JsonWriter(filePath);</span>
+<span class="nc" id="L33">        HashMap&lt;String,Double&gt; rate = new HashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        for(int i = 0; i &lt; currencies.size() -1;i++){</span>
+<span class="nc" id="L35">            rate.put(getName(i),this.getCurrencyRate(i));</span>
+        }
+<span class="nc" id="L37">        writer.createCurrencyDetails(date,&quot;$&quot;,rate,this.currencyID, this.name);</span>
+<span class="nc" id="L38">    }</span>
+
+<span class="fc" id="L40">    public Currency(String currencyName, String symbol){</span>
+<span class="fc" id="L41">        this.symbol = symbol;</span>
+<span class="fc" id="L42">        this.name = currencyName;</span>
+<span class="fc" id="L43">        this.currencyID = increaseCurrentCurrencyCount();</span>
+<span class="fc" id="L44">        this.currencyRate = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L45">        this.isPopular = false;</span>
+<span class="fc" id="L46">        currencies.add(this);</span>
+<span class="fc" id="L47">    }</span>
+
+    /**
+     * Automatic calculate and Create the exchange rate list for the new currency, and expand the exchange rate list of all other currencies
+     * @param relateCurrencyID the currencyID of an old currency used for calculation
+     * @param exchangeRate the exchange rate of the new currency to an old currency
+     */
+    public void expandCurrencyList(int relateCurrencyID, double exchangeRate){
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        if(currentCurrencyCount!=1){</span>
+<span class="nc" id="L56">            List&lt;Double&gt; relateCurrencyRate = currencies.get(relateCurrencyID).getCurrencyRateList();</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">            for(int i = 0; i &lt; relateCurrencyRate.size(); i++){         //create convert table for the new list</span>
+<span class="nc" id="L58">                Double resultNumber = Double.valueOf(exchangeRate*relateCurrencyRate.get(i));</span>
+<span class="nc" id="L59">                this.currencyRate.add(resultNumber);</span>
+            }
+<span class="nc bnc" id="L61" title="All 2 branches missed.">            for(int i = 0; i &lt; this.currencyRate.size(); i++){          //add convert rate of the new currency to other currencies</span>
+<span class="nc" id="L62">                Double resultNumber = Double.valueOf(1/this.currencyRate.get(i));</span>
+<span class="nc" id="L63">                currencies.get(i).currencyRate.add(resultNumber);</span>
+            }
+        }
+<span class="nc" id="L66">        currencies.add(this);</span>
+<span class="nc" id="L67">        this.currencyRate.add(Double.valueOf(1));</span>
+<span class="nc" id="L68">    }</span>
+
+    /**
+     * Get the currency exchange rate to another currency
+     * @param relateCurrencyID the currencyID of another currency
+     * @return the exchange rate
+     */
+    public Double getCurrencyRate(int relateCurrencyID){
+<span class="fc" id="L76">        return this.currencyRate.get(relateCurrencyID);</span>
+    }
+
+    /**
+     * Return the currency exchange rate list of the currency
+     * @return list of currency exchange rate
+     */
+    public List&lt;Double&gt; getCurrencyRateList(){
+<span class="nc" id="L84">        return this.currencyRate;</span>
+    }
+<span class="fc" id="L86">    public int getCurrencyID(){return this.currencyID;}</span>
+
+    public void setExchangeRateFromJSON(String currencyName, Double rate){
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        for(int i = 0; i &lt; currencies.size(); i ++){</span>
+
+        }
+<span class="nc" id="L92">    }</span>
+
+    /**
+     * This is a function for initialize the currencies, it will set the currency to popular when there are less than 4 popular currencies
+     * @return true if success, false if fail
+     */
+    public boolean setPopular(){
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        if (popularCurrencies.size() &lt; 4){</span>
+<span class="fc" id="L100">            this.isPopular = true;</span>
+<span class="fc" id="L101">            popularCurrencies.add(this.currencyID);</span>
+<span class="fc" id="L102">            return true;</span>
+        }
+<span class="fc" id="L104">        return false;</span>
+    }
+
+
+    public static String getName(int ID){
+<span class="fc" id="L109">        return getCurrency(ID).name;</span>
+    }
+    public static String getSymbol(int ID){
+<span class="fc" id="L112">        return getCurrency(ID).symbol;</span>
+    }
+
+    /**
+     * Replace a popular currency
+     * @param setPopularID the currency you want to set to popular
+     * @param replaceID the popular currency you want to replace
+     * @return
+     */
+    public static boolean setPopular(int setPopularID, int replaceID){
+<span class="nc bnc" id="L122" title="All 2 branches missed.">        if (popularCurrencies.size() == 4){</span>
+<span class="nc" id="L123">            popularCurrencies.remove(replaceID);</span>
+<span class="nc" id="L124">            getCurrency(replaceID).isPopular = false;</span>
+<span class="nc" id="L125">            popularCurrencies.add(setPopularID);</span>
+<span class="nc" id="L126">            getCurrency(setPopularID).isPopular = false;</span>
+<span class="nc" id="L127">            return true;</span>
+        }
+<span class="nc" id="L129">        return false;</span>
+    }
+
+    public static Currency getCurrency(int currencyID){
+<span class="fc" id="L133">        return currencies.get(currencyID);</span>
+    }
+    public static Currency getCurrency(String currencyName){
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">        for(int i = 0; i &lt; currencies.size();i++){</span>
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">            if(getCurrency(i).name == currencyName){</span>
+<span class="fc" id="L138">                return getCurrency(i);</span>
+            }
+        }
+<span class="nc" id="L141">        return null;</span>
+    }
+<span class="fc" id="L143">    public static int getCurrencyCount(){return currentCurrencyCount;}</span>
+
+    /**
+     * Return current number of total currencies, and increase the number by 1
+     * @return the number of total currencies before increase
+     */
+    public static int increaseCurrentCurrencyCount() {
+<span class="fc" id="L150">        int returnNumber = currentCurrencyCount;</span>
+<span class="fc" id="L151">        currentCurrencyCount ++;</span>
+<span class="fc" id="L152">        return returnNumber;</span>
+    }
+
+    public static void setupFromJSON(String filename, String datename){
+<span class="fc" id="L156">        date = datename;</span>
+<span class="fc" id="L157">        currencies.clear();</span>
+<span class="fc" id="L158">        popularCurrencies.clear();</span>
+<span class="fc" id="L159">        currentCurrencyCount = 0;</span>
+<span class="fc" id="L160">        JsonReader dataReader = new JsonReader(filename);</span>
+<span class="fc" id="L161">        HashMap&lt; String, HashMap&lt;String, Double&gt;&gt; data = dataReader.getDateMap(datename);</span>
+<span class="fc" id="L162">        List&lt;Currency&gt; curList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L163">        Iterator it = data.entrySet().iterator();</span>
+<span class="fc bfc" id="L164" title="All 2 branches covered.">        while (it.hasNext()) {</span>
+<span class="fc" id="L165">            Map.Entry pair = (Map.Entry)it.next();</span>
+<span class="fc" id="L166">            new Currency((String)pair.getKey(),dataReader.getSymbol(datename,(String)pair.getKey()));</span>
+<span class="fc" id="L167">        }</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        for(int i = 0; i &lt; currencies.size(); i++){</span>
+<span class="fc" id="L169">            HashMap&lt;String, Double&gt; rate = data.get(currencies.get(i).name);</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">            for(int j = 0; j &lt; currencies.size(); j++){</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">                if(i != j){</span>
+<span class="fc" id="L172">                    currencies.get(i).currencyRate.add(Double.valueOf(rate.get(currencies.get(j).name)));</span>
+                }else{
+<span class="fc" id="L174">                    currencies.get(i).currencyRate.add(Double.valueOf(1));</span>
+                }
+
+            }
+<span class="fc" id="L178">            currencies.get(i).setPopular();</span>
+        }
+
+<span class="fc" id="L181">    }</span>
+
+    public static List&lt;Integer&gt; getPopularCurrencies(){
+<span class="fc" id="L184">        return popularCurrencies;</span>
+    }
+
+    public static String getStatus(int fromID, int toID, String date){
+<span class="fc" id="L188">        String status = &quot; &quot;;</span>
+<span class="fc" id="L189">        String curFrom = getName(fromID);</span>
+<span class="fc" id="L190">        String curTo = getName(toID);</span>
+<span class="fc" id="L191">        String filePath = &quot;src/main/java/W14B_G4_Assignment1/resources/ExchangeRates.json&quot;;</span>
+<span class="fc" id="L192">        Integer day = Integer.parseInt(date.substring(8,10));</span>
+<span class="fc" id="L193">        day -= 1;</span>
+<span class="fc" id="L194">        String yesterday = date.substring(0,8);</span>
+<span class="pc bpc" id="L195" title="1 of 2 branches missed.">        if(day&lt;10){</span>
+<span class="fc" id="L196">            yesterday = yesterday + &quot;0&quot; + day.toString();</span>
+        }else{
+<span class="nc" id="L198">            yesterday = yesterday + day.toString();</span>
+        }
+<span class="fc" id="L200">        JsonReader reader = new JsonReader(filePath);</span>
+<span class="pc bpc" id="L201" title="1 of 2 branches missed.">        if(reader.getDateMap(yesterday).size()&gt;1){</span>
+<span class="fc" id="L202">            HashMap&lt; String, HashMap&lt;String, Double&gt; &gt; yesterdayMap = reader.getDateMap(yesterday);</span>
+<span class="fc" id="L203">            HashMap&lt; String, HashMap&lt;String, Double&gt; &gt; todayMap = reader.getDateMap(date);</span>
+<span class="fc" id="L204">            Double yesterdayRate = yesterdayMap.get(curFrom).get(curTo);</span>
+<span class="fc" id="L205">            Double todayRate = todayMap.get(curFrom).get(curTo);</span>
+<span class="pc bpc" id="L206" title="2 of 4 branches missed.">            if(yesterdayRate != null &amp;&amp; todayRate != null){</span>
+<span class="fc bfc" id="L207" title="All 2 branches covered.">                if(yesterdayRate &gt; todayRate){</span>
+<span class="fc" id="L208">                    status = &quot;\u2193&quot;;</span>
+<span class="fc bfc" id="L209" title="All 2 branches covered.">                }else if(yesterdayRate &lt; todayRate){</span>
+<span class="fc" id="L210">                    status = &quot;\u2191&quot;;</span>
+                }
+
+            }
+        }
+<span class="fc" id="L215">        return status;</span>
+
+    }
+
+    public static void changeExchangeRate(int fromID, int toID, Double newValue){
+<span class="nc" id="L220">        currencies.get(fromID).currencyRate.set(toID, newValue);</span>
+<span class="nc" id="L221">        String filePath = &quot;src/main/java/W14B_G4_Assignment1/resources/ExchangeRates.json&quot;;</span>
+<span class="nc" id="L222">        JsonWriter writer = new JsonWriter(filePath);</span>
+<span class="nc" id="L223">        writer.editCurrencyDetails(date,getName(fromID),getName(toID),newValue);</span>
+<span class="nc" id="L224">    }</span>
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

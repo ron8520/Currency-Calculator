@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Calculator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment1</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment1.model</a> &gt; <span class="el_source">Calculator.java</span></div><h1>Calculator.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment1.model;
+
+import java.util.*;
+
+public class Calculator {
+
+<span class="fc" id="L7">    private List&lt;Double&gt; rateList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L8">    private List&lt;String&gt; transactionList = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L10">    public Calculator(String startDate, String endDate, String currencyFrom, String currencyTo){</span>
+<span class="fc" id="L11">        JsonReader dataReader = new JsonReader(&quot;src/main/java/W14B_G4_Assignment1/resources/ExchangeRates.json&quot;);</span>
+
+<span class="fc" id="L13">        String currentDate = startDate;</span>
+        while (true){
+<span class="fc" id="L15">            HashMap&lt; String, HashMap&lt;String, Double&gt; &gt; currentMap = dataReader.getDateMap(currentDate);</span>
+<span class="fc" id="L16">            rateList.add(currentMap.get(currencyFrom).get(currencyTo));</span>
+<span class="fc" id="L17">            transactionList.add(String.format(&quot;%-15s%8.3f&quot;, currentDate, currentMap.get(currencyFrom).get(currencyTo)));</span>
+
+<span class="fc bfc" id="L19" title="All 2 branches covered.">            if (currentDate.equals(endDate)){</span>
+<span class="fc" id="L20">                break;</span>
+            }
+
+<span class="fc" id="L23">            currentDate = increaseDate(currentDate);</span>
+<span class="fc" id="L24">        }</span>
+<span class="fc" id="L25">    }</span>
+
+    public String increaseDate(String date){
+<span class="fc" id="L28">        String[] splitResult = date.split(&quot;-&quot;);</span>
+<span class="fc" id="L29">        int dateInt = Integer.parseInt(splitResult[2]) + 1;</span>
+<span class="fc" id="L30">        String dateString = String.valueOf(dateInt);</span>
+<span class="fc" id="L31">        return String.format(splitResult[0] + &quot;-&quot; + splitResult[1] + &quot;-&quot; + &quot;%2s&quot;, dateString).replace(' ', '0');</span>
+    }
+
+    public double average(){
+<span class="fc" id="L35">        double sum = 0.0;</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        for (int i = 0;i &lt; this.rateList.size();i++){</span>
+<span class="fc" id="L37">            sum += this.rateList.get(i);</span>
+        }
+
+<span class="fc" id="L40">        return Double.parseDouble(String.format(&quot;%.2f&quot;, sum / this.rateList.size()));</span>
+    }
+
+    public double median(){
+<span class="fc" id="L44">        Collections.sort(this.rateList);</span>
+
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        if (this.rateList.size() % 2 == 1){</span>
+<span class="fc" id="L47">            return this.rateList.get(this.rateList.size() / 2);</span>
+        }else{
+<span class="nc" id="L49">            double result = (this.rateList.get(this.rateList.size() / 2) + this.rateList.get(this.rateList.size() / 2 - 1)) / 2;</span>
+<span class="nc" id="L50">            return Double.parseDouble(String.format(&quot;%.2f&quot;, result));</span>
+        }
+    }
+
+    public double maximum(){
+<span class="fc" id="L55">        double max = 0.0;</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        for (int i = 0;i &lt; this.rateList.size();i++){</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            if (this.rateList.get(i) &gt; max){</span>
+<span class="fc" id="L58">                max = this.rateList.get(i);</span>
+            }
+        }
+
+<span class="fc" id="L62">        return max;</span>
+    }
+
+    public double minimum(){
+<span class="fc" id="L66">        double min = this.rateList.get(0);</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        for (int i = 0;i &lt; this.rateList.size();i++){</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">            if (this.rateList.get(i) &lt; min){</span>
+<span class="nc" id="L69">                min = this.rateList.get(i);</span>
+            }
+        }
+
+<span class="fc" id="L73">        return min;</span>
+    }
+
+    public double stdDeviation(){
+<span class="fc" id="L77">        double avr = this.average();</span>
+<span class="fc" id="L78">        double sd = 0.0;</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        for (int i = 0;i &lt; this.rateList.size();i++){</span>
+<span class="fc" id="L80">            sd += Math.pow(this.rateList.get(i) - avr, 2);</span>
+        }
+
+<span class="fc" id="L83">        return Double.parseDouble(String.format(&quot;%.2f&quot;, Math.sqrt(sd/this.rateList.size())));</span>
+    }
+
+    public List&lt;String&gt; getTransactions(){
+<span class="fc" id="L87">        return this.transactionList;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
